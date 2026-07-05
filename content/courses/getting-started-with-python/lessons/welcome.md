@@ -24,4 +24,8 @@ Each lesson contains:
 
 > "The only way to learn programming is by writing code." — Every programmer ever
 
+### Resource
+
+- [W3Schools Python Tutorial](https://www.w3schools.com/python/default.asp) — Use this as a companion reference throughout the course. It has interactive examples for every topic we cover.
+
 Let's get started!

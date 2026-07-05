@@ -34,3 +34,7 @@ Python is one of the most popular programming languages for beginners and profes
 - Strings and string methods
 - Booleans and conditional logic
 - Writing and running Python programs
+
+## Resources
+
+- [W3Schools Python Tutorial](https://www.w3schools.com/python/default.asp) — A great reference for all Python topics, with interactive examples you can run in your browser.
