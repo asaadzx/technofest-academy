@@ -20,54 +20,51 @@ Built with **SvelteKit 2**, **Svelte 5 Runes**, **Tailwind CSS v4**, **Bits UI v
 
 ---
 
-## Prerequisites
+## Deploy
+
+### 1. Prerequisites
 
 - **Bun** >= 1.3.14
-- A **Turso** database (create one at [turso.tech](https://turso.tech) or use your existing one)
+- A **Turso** database — create one at [turso.tech](https://turso.tech)
 
----
-
-## Setup
+### 2. Environment
 
 ```sh
-# 1. Install dependencies
-bun install
-
-# 2. Set up environment
 cp .env.example .env
-# Edit .env with your Turso database URL and auth token
-
-# 3. Push schema to DB
-bun run db:push
-
-# 4. Seed courses from markdown into DB
-bun run db:seed
-
-# 5. Create an admin account (first time only)
-bun run db:create-admin <email> <password> [name]
-
-# 6. Start dev server
-bun run dev
 ```
 
-Open **http://localhost:5173**
+Set these variables in `.env`:
 
-### Production
+```
+DATABASE_URL=libsql://your-db-name-username.aws-eu-west-1.turso.io
+DATABASE_AUTH_TOKEN=your-turso-auth-token
+```
+
+### 3. One-time DB setup (run locally)
 
 ```sh
-bun run build
-bun run start   # or: PORT=3000 bun build/index.js
+bun install
+bun run db:push          # create tables
+bun run db:seed          # sync markdown courses → DB
+bun run db:create-admin <email> <password> [name]   # create admin
 ```
 
----
+### 4. Deploy on Vercel
 
-## Accounts
+Push to GitHub, then:
 
-| Email | Password | Role |
-|---|---|---|
-| asaad.work2010@gmail.com | asaad123 | admin |
+1. Go to [vercel.com/new](https://vercel.com/new)
+2. Import your repo
+3. Add the same `DATABASE_URL` and `DATABASE_AUTH_TOKEN` env vars
+4. Deploy — Vercel auto-detects SvelteKit
 
-Register new accounts at `/register`. To promote a user to admin, update their `role` in the database.
+### Local dev
+
+```sh
+bun install
+cp .env.example .env     # fill in your Turso credentials
+bun run dev              # http://localhost:5173
+```
 
 ---
 
@@ -75,15 +72,14 @@ Register new accounts at `/register`. To promote a user to admin, update their `
 
 | Command | Purpose |
 |---|---|
-| `bun run dev` | Start dev server (network accessible) |
+| `bun run dev` | Start dev server |
 | `bun run build` | Production build |
 | `bun run check` | Type-check with svelte-check |
 | `bun run preview` | Preview production build locally |
-| `bun run start` | Start production server (`bun build/index.js`) |
+| `bun run start` | Start production server |
 | `bun run test` | Run unit tests |
 | `bun run db:push` | Push schema to Turso DB |
 | `bun run db:generate` | Generate Drizzle migrations |
-| `bun run db:migrate` | Run migrations |
 | `bun run db:seed` | Sync markdown content → Turso DB |
 | `bun run db:create-admin` | Create or promote a user to admin |
 
@@ -130,15 +126,6 @@ src/
     /docs                        # Documentation listing
     /docs/[slug]                 # Documentation detail
 ```
-
----
-
-## TODO
-
-- [ ] Rate limiting on login/register
-- [ ] Email verification on registration
-- [ ] Fill in `docs/contributing.md`
-- [ ] Deploy and test with real users
 
 ---
 
