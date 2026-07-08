@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 	import { Button, Card, Badge } from '$lib/components/ui';
 
-	const { completedCount, enrolledCourses, progressCounts, availableCourses } = $derived($page.data as {
+	const { completedCount, enrolledCourses, progressCounts, availableCourses, certificates, quizAttempts, quizCourses } = $derived($page.data as {
 		completedCount: number;
 		enrolledCourses: Array<{
 			id: number;
@@ -14,6 +14,21 @@
 		}>;
 		progressCounts: Array<{ courseId: number; count: number; total: number }>;
 		availableCourses: Array<{ slug: string; title: string; difficulty: string; lessonCount: number }>;
+		certificates: Array<{
+			id: number;
+			courseTitle: string;
+			certCode: string;
+			issuedAt: Date;
+		}>;
+		quizAttempts: Array<{
+			id: number;
+			courseSlug: string;
+			lessonSlug: string;
+			score: number;
+			total: number;
+			createdAt: Date;
+		}>;
+		quizCourses: Array<{ slug: string; title: string }>;
 	});
 
 	const totalLessons = $derived(
@@ -110,6 +125,63 @@
 			</div>
 		{/if}
 	</section>
+
+	{#if quizAttempts.length > 0}
+		{@const grouped = Object.fromEntries(
+			quizCourses.map((c) => [
+				c.slug,
+				{
+					title: c.title,
+					attempts: quizAttempts.filter((a) => a.courseSlug === c.slug)
+				}
+			])
+		)}
+		<section class="mt-12">
+			<h2 class="mb-6 text-xl font-semibold text-surface-900">Quiz Scores</h2>
+			<div class="space-y-4">
+				{#each Object.entries(grouped) as [slug, group]}
+					<details class="group rounded-xl border border-surface-200 bg-white">
+						<summary class="flex cursor-pointer items-center justify-between px-5 py-3 text-sm font-medium text-surface-900 hover:bg-surface-50">
+							{group.title}
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="transition-transform group-open:rotate-180"><path d="m6 9 6 6 6-6"/></svg>
+						</summary>
+						<div class="border-t border-surface-100">
+							{#each group.attempts as attempt}
+								<div class="flex items-center justify-between px-5 py-3 text-sm even:bg-surface-50">
+									<span class="text-surface-700">{attempt.lessonSlug.replace(/-/g, ' ')}</span>
+									<span class="font-medium text-surface-900">{attempt.score}/{attempt.total}</span>
+								</div>
+							{/each}
+						</div>
+					</details>
+				{/each}
+			</div>
+		</section>
+	{/if}
+
+	{#if certificates.length > 0}
+		<section class="mt-12">
+			<h2 class="mb-6 text-xl font-semibold text-surface-900">Certificates</h2>
+			<div class="space-y-3">
+				{#each certificates as cert}
+					<div class="flex items-center justify-between rounded-xl border border-surface-200 bg-white p-4">
+						<div>
+							<p class="font-medium text-surface-900">{cert.courseTitle}</p>
+							<p class="text-sm text-surface-500">
+								Completed {new Date(cert.issuedAt).toLocaleDateString()}
+							</p>
+						</div>
+						<a
+							href="/certificates/{cert.certCode}"
+							class="rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700"
+						>
+							Download PDF
+						</a>
+					</div>
+				{/each}
+			</div>
+		</section>
+	{/if}
 
 	<section class="mt-12">
 		<h2 class="mb-6 text-xl font-semibold text-surface-900">Available Courses</h2>

@@ -1,6 +1,6 @@
 import { db } from '$lib/server/db';
-import { progress, enrollments, courses, lessons } from '$lib/server/db/schema';
-import { count, eq, and, sql, notInArray } from 'drizzle-orm';
+import { progress, enrollments, courses, lessons, certificates, quizAttempts } from '$lib/server/db/schema';
+import { count, eq, and, sql, notInArray, desc, inArray } from 'drizzle-orm';
 import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
@@ -68,10 +68,43 @@ export const load: PageServerLoad = async ({ locals }) => {
 		.orderBy(courses.order)
 		.limit(4);
 
+	const userCerts = await db
+		.select()
+		.from(certificates)
+		.where(eq(certificates.userId, userId))
+		.orderBy(desc(certificates.issuedAt))
+		.limit(20);
+
+	const userQuizAttempts = await db
+		.select({
+			id: quizAttempts.id,
+			courseSlug: quizAttempts.courseSlug,
+			lessonSlug: quizAttempts.lessonSlug,
+			score: quizAttempts.score,
+			total: quizAttempts.total,
+			createdAt: quizAttempts.createdAt
+		})
+		.from(quizAttempts)
+		.where(eq(quizAttempts.userId, userId))
+		.orderBy(desc(quizAttempts.createdAt))
+		.limit(50);
+
+	const quizCourses = await db
+		.select({ slug: courses.slug, title: courses.title })
+		.from(courses)
+		.where(
+			userQuizAttempts.length > 0
+				? inArray(courses.slug, [...new Set(userQuizAttempts.map((a) => a.courseSlug))])
+				: sql`1=0`
+		);
+
 	return {
 		completedCount: completedResult.value,
 		enrolledCourses: enrolledRows,
 		progressCounts,
-		availableCourses
+		availableCourses,
+		certificates: userCerts,
+		quizAttempts: userQuizAttempts,
+		quizCourses
 	};
 };
