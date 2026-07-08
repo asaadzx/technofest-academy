@@ -80,6 +80,7 @@ bun run dev              # http://localhost:5173
 | `bun run test` | Run unit tests |
 | `bun run db:push` | Push schema to Turso DB |
 | `bun run db:generate` | Generate Drizzle migrations |
+| `bun run db:migrate` | Apply Drizzle migrations to Turso |
 | `bun run db:seed` | Sync markdown content → Turso DB |
 | `bun run db:create-admin` | Create or promote a user to admin |
 
@@ -112,16 +113,24 @@ src/
       docs.ts                    # Docs markdown loader
     server/
       auth.ts                    # Password hashing, sessions, cookies
+      certificates/
+        pdf.ts                   # PDF certificate generator (pdfkit)
+      quiz/
+        answer-keys.ts           # Load .quiz.json answer key files
+        scorer.ts                # Score quiz submissions against answer keys
       db/
         index.ts                 # Drizzle client
-        schema/                  # Tables: users, sessions, courses, lessons, enrollments, progress
+        schema/                  # Tables: users, sessions, courses, lessons, enrollments, progress, quiz_attempts, certificates, password_reset_tokens
   routes/
     /                            # Landing page
     /courses                     # Course listing
     /courses/[slug]              # Course detail
     /courses/[slug]/lessons/[lessonSlug]  # Lesson viewer
-    /dashboard                   # Student dashboard
+    /dashboard                   # Student dashboard (progress, quiz scores, certificates)
+    /certificates/[certCode]     # Certificate PDF download
     /admin                       # Admin panel
+    /admin/quiz-results          # Admin quiz results view
+    /admin/certificates          # Admin certificates view
     /login, /register, /logout   # Auth pages
     /docs                        # Documentation listing
     /docs/[slug]                 # Documentation detail
@@ -140,10 +149,10 @@ See [Creating Content](docs/creating-content.md) for detailed instructions on ad
 ### 🔴 High Priority
 
 - [ ] **Create remaining pillar courses** — Landing page promises 4 pillars but only Python exists. Need courses for Game Development (Godot), Linux & System Administration, Web Development, and Artificial Intelligence.
-- [ ] **Server-side quiz persistence** — Quiz results currently stored in `localStorage` only; lost on browser clear or device switch. Migrate to database-backed `quiz_results` table with admin analytics.
+- [x] **Server-side quiz persistence** — Quiz results stored in `quiz_attempts` table, scored server-side against `.quiz.json` answer keys. Score displayed on dashboard.
+- [x] **Certificate generation** — PDF certificate auto-generated via pdfkit on course completion, downloadable from dashboard and via unique code URL.
+- [x] **Remove `.env` from version control** — `.env.example` created, `.env` in `.gitignore`.
 - [ ] **Email sending** — Install nodemailer/resend/sendgrid. Wire up password reset emails, email verification on registration, and notification emails.
-- [ ] **Certificate generation** — Auto-generate a certificate (PDF) when a student completes all lessons in a course. Store in a `certificates` table.
-- [ ] **Remove `.env` from version control** — Live Turso credentials are committed. Add to `.gitignore`, create `.env.example`, and rotate the tokens.
 
 ### 🟡 Medium Priority
 

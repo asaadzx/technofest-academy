@@ -1,0 +1,24 @@
+[
+  {
+    "id": "flask-q1",
+    "type": "mcq",
+    "correct": "B",
+    "points": 1
+  },
+  {
+    "id": "flask-q2",
+    "type": "code",
+    "correct": [
+      "Hello, Ahmed!"
+    ],
+    "points": 1
+  },
+  {
+    "id": "flask-q3",
+    "type": "fill",
+    "correct": [
+      "curly braces"
+    ],
+    "points": 1
+  }
+]

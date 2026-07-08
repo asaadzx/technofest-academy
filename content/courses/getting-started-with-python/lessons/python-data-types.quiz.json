@@ -1,0 +1,22 @@
+[
+  {
+    "id": "datatypes-q1",
+    "type": "mcq",
+    "correct": "C",
+    "points": 1
+  },
+  {
+    "id": "datatypes-q2",
+    "type": "code",
+    "correct": [
+      "5"
+    ],
+    "points": 1
+  },
+  {
+    "id": "datatypes-q3",
+    "type": "mcq",
+    "correct": "A",
+    "points": 1
+  }
+]

@@ -3,7 +3,13 @@ import { browser } from '$app/environment';
 export interface QuizResult {
 	questionId: string;
 	lessonSlug: string;
+	answer: string;
 	correct: boolean;
+}
+
+export interface QuizSubmission {
+	questionId: string;
+	answer: string;
 }
 
 function loadConsent(): boolean | null {
@@ -48,12 +54,12 @@ class QuizStore {
 		this.consent = false;
 	}
 
-	recordResult(questionId: string, lessonSlug: string, correct: boolean) {
+	recordResult(questionId: string, lessonSlug: string, answer: string, correct: boolean) {
 		const idx = this.results.findIndex((r) => r.questionId === questionId);
 		if (idx >= 0) {
-			this.results[idx] = { questionId, lessonSlug, correct };
+			this.results[idx] = { questionId, lessonSlug, answer, correct };
 		} else {
-			this.results.push({ questionId, lessonSlug, correct });
+			this.results.push({ questionId, lessonSlug, answer, correct });
 		}
 		persistResults(this.results);
 	}
@@ -72,6 +78,38 @@ class QuizStore {
 
 	wasCorrect(questionId: string): boolean | null {
 		return this.results.find((r) => r.questionId === questionId)?.correct ?? null;
+	}
+
+	getLessonAnswers(lessonSlug: string): QuizSubmission[] {
+		return this.results
+			.filter((r) => r.lessonSlug === lessonSlug && r.answer !== '')
+			.map((r) => ({ questionId: r.questionId, answer: r.answer }));
+	}
+
+	async submitQuiz(
+		courseSlug: string,
+		lessonSlug: string
+	): Promise<{ score: number; total: number; answers: any[] } | null> {
+		const answers = this.getLessonAnswers(lessonSlug);
+		if (answers.length === 0) return null;
+
+		const formData = new FormData();
+		formData.append('answers', JSON.stringify(answers));
+
+		try {
+			const res = await fetch(`/courses/${courseSlug}/lessons/${lessonSlug}?/submitQuiz`, {
+				method: 'POST',
+				body: formData
+			});
+			if (!res.ok) return null;
+			const html = await res.text();
+			const match = html.match(/<script class="svelte-data" type="application\/json">(.*?)<\/script>/);
+			if (!match) return null;
+			const data = JSON.parse(match[1]);
+			return data?.actionResult?.quizResult ?? null;
+		} catch {
+			return null;
+		}
 	}
 }
 

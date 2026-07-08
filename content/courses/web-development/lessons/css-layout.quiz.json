@@ -1,0 +1,24 @@
+[
+  {
+    "id": "layout-q1",
+    "type": "mcq",
+    "correct": "B",
+    "points": 1
+  },
+  {
+    "id": "layout-q2",
+    "type": "code",
+    "correct": [
+      "3"
+    ],
+    "points": 1
+  },
+  {
+    "id": "layout-q3",
+    "type": "fill",
+    "correct": [
+      "vh"
+    ],
+    "points": 1
+  }
+]

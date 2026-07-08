@@ -1,0 +1,22 @@
+[
+  {
+    "id": "variables-q1",
+    "type": "mcq",
+    "correct": "C",
+    "points": 1
+  },
+  {
+    "id": "variables-q2",
+    "type": "tf",
+    "correct": "false",
+    "points": 1
+  },
+  {
+    "id": "variables-q3",
+    "type": "fill",
+    "correct": [
+      "snake_case"
+    ],
+    "points": 1
+  }
+]

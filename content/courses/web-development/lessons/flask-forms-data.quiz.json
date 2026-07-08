@@ -1,0 +1,24 @@
+[
+  {
+    "id": "flaskforms-q1",
+    "type": "mcq",
+    "correct": "B",
+    "points": 1
+  },
+  {
+    "id": "flaskforms-q2",
+    "type": "code",
+    "correct": [
+      "Default value if q is missing"
+    ],
+    "points": 1
+  },
+  {
+    "id": "flaskforms-q3",
+    "type": "fill",
+    "correct": [
+      "jsonify"
+    ],
+    "points": 1
+  }
+]

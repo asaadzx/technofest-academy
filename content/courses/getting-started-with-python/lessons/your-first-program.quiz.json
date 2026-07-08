@@ -1,0 +1,22 @@
+[
+  {
+    "id": "first-program-q1",
+    "type": "mcq",
+    "correct": "C",
+    "points": 1
+  },
+  {
+    "id": "first-program-q2",
+    "type": "mcq",
+    "correct": "C",
+    "points": 1
+  },
+  {
+    "id": "first-program-q3",
+    "type": "fill",
+    "correct": [
+      "py"
+    ],
+    "points": 1
+  }
+]

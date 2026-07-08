@@ -1,0 +1,24 @@
+[
+  {
+    "id": "jsevents-q1",
+    "type": "mcq",
+    "correct": "B",
+    "points": 1
+  },
+  {
+    "id": "jsevents-q2",
+    "type": "code",
+    "correct": [
+      "click"
+    ],
+    "points": 1
+  },
+  {
+    "id": "jsevents-q3",
+    "type": "fill",
+    "correct": [
+      "appendChild"
+    ],
+    "points": 1
+  }
+]

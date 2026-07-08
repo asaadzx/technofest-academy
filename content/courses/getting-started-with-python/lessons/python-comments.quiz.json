@@ -1,0 +1,22 @@
+[
+  {
+    "id": "comments-q1",
+    "type": "mcq",
+    "correct": "C",
+    "points": 1
+  },
+  {
+    "id": "comments-q2",
+    "type": "mcq",
+    "correct": "B",
+    "points": 1
+  },
+  {
+    "id": "comments-q3",
+    "type": "fill",
+    "correct": [
+      "comments"
+    ],
+    "points": 1
+  }
+]

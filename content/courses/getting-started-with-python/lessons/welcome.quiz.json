@@ -1,0 +1,14 @@
+[
+  {
+    "id": "welcome-q1",
+    "type": "mcq",
+    "correct": "B",
+    "points": 1
+  },
+  {
+    "id": "welcome-q2",
+    "type": "tf",
+    "correct": "true",
+    "points": 1
+  }
+]

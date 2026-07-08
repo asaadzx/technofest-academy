@@ -1,0 +1,24 @@
+[
+  {
+    "id": "css-q1",
+    "type": "mcq",
+    "correct": "B",
+    "points": 1
+  },
+  {
+    "id": "css-q2",
+    "type": "code",
+    "correct": [
+      "color"
+    ],
+    "points": 1
+  },
+  {
+    "id": "css-q3",
+    "type": "fill",
+    "correct": [
+      "padding"
+    ],
+    "points": 1
+  }
+]

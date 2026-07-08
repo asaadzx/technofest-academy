@@ -1,8 +1,16 @@
 import { db } from '$lib/server/db';
-import { courses, lessons, progress, enrollments } from '$lib/server/db/schema';
+import { courses, lessons, progress, enrollments, quizAttempts, certificates } from '$lib/server/db/schema';
 import { eq, and, count } from 'drizzle-orm';
 import { error, redirect } from '@sveltejs/kit';
+import { getAnswerKey } from '$lib/server/quiz/answer-keys';
+import { scoreQuiz } from '$lib/server/quiz/scorer';
 import type { Actions, PageServerLoad } from './$types';
+
+function generateCertCode(): string {
+	const bytes = new Uint8Array(16);
+	crypto.getRandomValues(bytes);
+	return Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('');
+}
 
 export const load: PageServerLoad = async ({ params, locals }) => {
 	const userId = locals.user?.id;
@@ -117,6 +125,25 @@ export const actions: Actions = {
 				.where(
 					and(eq(enrollments.userId, locals.user.id), eq(enrollments.courseId, dbCourse.id))
 				);
+
+			const existingCert = await db
+				.select()
+				.from(certificates)
+				.where(
+					and(eq(certificates.userId, locals.user.id), eq(certificates.courseSlug, params.slug))
+				)
+				.limit(1)
+				.then((r) => r[0] ?? null);
+
+			if (!existingCert) {
+				await db.insert(certificates).values({
+					userId: locals.user.id,
+					courseSlug: params.slug,
+					courseTitle: dbCourse.title,
+					userName: locals.user.name,
+					certCode: generateCertCode()
+				});
+			}
 		} else if (done < total) {
 			await db
 				.update(enrollments)
@@ -127,5 +154,28 @@ export const actions: Actions = {
 		}
 
 		return { toggled: true };
+	},
+
+	submitQuiz: async ({ request, params, locals }) => {
+		if (!locals.user) redirect(302, '/login');
+
+		const data = await request.formData();
+		const answers = JSON.parse(String(data.get('answers') || '[]'));
+		const key = getAnswerKey(params.slug, params.lessonSlug);
+
+		if (key.length === 0) return { quizResult: null };
+
+		const result = scoreQuiz(key, answers);
+
+		await db.insert(quizAttempts).values({
+			userId: locals.user.id,
+			courseSlug: params.slug,
+			lessonSlug: params.lessonSlug,
+			answers: result.answers,
+			score: result.score,
+			total: result.total
+		});
+
+		return { quizResult: { score: result.score, total: result.total, answers: result.answers } };
 	}
 };

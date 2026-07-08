@@ -1,0 +1,24 @@
+[
+  {
+    "id": "jsbasics-q1",
+    "type": "mcq",
+    "correct": "B",
+    "points": 1
+  },
+  {
+    "id": "jsbasics-q2",
+    "type": "code",
+    "correct": [
+      "Ali is 16"
+    ],
+    "points": 1
+  },
+  {
+    "id": "jsbasics-q3",
+    "type": "fill",
+    "correct": [
+      "querySelector"
+    ],
+    "points": 1
+  }
+]

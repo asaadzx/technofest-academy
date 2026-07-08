@@ -1,0 +1,24 @@
+[
+  {
+    "id": "flaskstatic-q1",
+    "type": "mcq",
+    "correct": "C",
+    "points": 1
+  },
+  {
+    "id": "flaskstatic-q2",
+    "type": "code",
+    "correct": [
+      "/static/css/style.css"
+    ],
+    "points": 1
+  },
+  {
+    "id": "flaskstatic-q3",
+    "type": "fill",
+    "correct": [
+      "_for"
+    ],
+    "points": 1
+  }
+]

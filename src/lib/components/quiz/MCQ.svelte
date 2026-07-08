@@ -26,7 +26,7 @@
 	function handleSubmit() {
 		if (!selected || submitted) return;
 		submitted = true;
-		quizStore.recordResult(id, lesson, selected === correct);
+		quizStore.recordResult(id, lesson, selected, selected === correct);
 	}
 
 	function handleRetry() {

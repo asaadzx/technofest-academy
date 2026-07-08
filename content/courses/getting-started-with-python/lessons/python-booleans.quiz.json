@@ -1,0 +1,22 @@
+[
+  {
+    "id": "booleans-q1",
+    "type": "tf",
+    "correct": "false",
+    "points": 1
+  },
+  {
+    "id": "booleans-q2",
+    "type": "code",
+    "correct": [
+      "True\nFalse"
+    ],
+    "points": 1
+  },
+  {
+    "id": "booleans-q3",
+    "type": "mcq",
+    "correct": "B",
+    "points": 1
+  }
+]

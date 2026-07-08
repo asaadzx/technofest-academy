@@ -1,0 +1,22 @@
+[
+  {
+    "id": "web-q1",
+    "type": "mcq",
+    "correct": "B",
+    "points": 1
+  },
+  {
+    "id": "web-q2",
+    "type": "tf",
+    "correct": "false",
+    "points": 1
+  },
+  {
+    "id": "web-q3",
+    "type": "fill",
+    "correct": [
+      "Network"
+    ],
+    "points": 1
+  }
+]

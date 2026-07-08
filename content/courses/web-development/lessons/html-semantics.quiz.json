@@ -1,0 +1,22 @@
+[
+  {
+    "id": "semantics-q1",
+    "type": "mcq",
+    "correct": "B",
+    "points": 1
+  },
+  {
+    "id": "semantics-q2",
+    "type": "tf",
+    "correct": "false",
+    "points": 1
+  },
+  {
+    "id": "semantics-q3",
+    "type": "code",
+    "correct": [
+      "POST"
+    ],
+    "points": 1
+  }
+]

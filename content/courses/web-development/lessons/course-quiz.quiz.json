@@ -1,0 +1,104 @@
+[
+  {
+    "id": "wquiz-q1",
+    "type": "tf",
+    "correct": "true",
+    "points": 1
+  },
+  {
+    "id": "wquiz-q2",
+    "type": "mcq",
+    "correct": "B",
+    "points": 1
+  },
+  {
+    "id": "wquiz-q3",
+    "type": "code",
+    "correct": [
+      "105"
+    ],
+    "points": 1
+  },
+  {
+    "id": "wquiz-q4",
+    "type": "fill",
+    "correct": [
+      "dynamic"
+    ],
+    "points": 1
+  },
+  {
+    "id": "wquiz-q5",
+    "type": "mcq",
+    "correct": "C",
+    "points": 1
+  },
+  {
+    "id": "wquiz-q6",
+    "type": "tf",
+    "correct": "false",
+    "points": 1
+  },
+  {
+    "id": "wquiz-q7",
+    "type": "code",
+    "correct": [
+      "clicked! is logged to the console"
+    ],
+    "points": 1
+  },
+  {
+    "id": "wquiz-q8",
+    "type": "mcq",
+    "correct": "C",
+    "points": 1
+  },
+  {
+    "id": "wquiz-q9",
+    "type": "fill",
+    "correct": [
+      "preventDefault"
+    ],
+    "points": 1
+  },
+  {
+    "id": "wquiz-q10",
+    "type": "mcq",
+    "correct": "B",
+    "points": 1
+  },
+  {
+    "id": "wquiz-q11",
+    "type": "code",
+    "correct": [
+      "{{ person }}"
+    ],
+    "points": 1
+  },
+  {
+    "id": "wquiz-q12",
+    "type": "mcq",
+    "correct": "B",
+    "points": 1
+  },
+  {
+    "id": "wquiz-q13",
+    "type": "tf",
+    "correct": "false",
+    "points": 1
+  },
+  {
+    "id": "wquiz-q14",
+    "type": "mcq",
+    "correct": "B",
+    "points": 1
+  },
+  {
+    "id": "wquiz-q15",
+    "type": "fill",
+    "correct": [
+      "for"
+    ],
+    "points": 1
+  }
+]

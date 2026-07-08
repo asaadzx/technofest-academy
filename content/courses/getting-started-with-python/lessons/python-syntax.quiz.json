@@ -1,0 +1,20 @@
+[
+  {
+    "id": "syntax-q1",
+    "type": "tf",
+    "correct": "false",
+    "points": 1
+  },
+  {
+    "id": "syntax-q2",
+    "type": "mcq",
+    "correct": "B",
+    "points": 1
+  },
+  {
+    "id": "syntax-q3",
+    "type": "mcq",
+    "correct": "B",
+    "points": 1
+  }
+]

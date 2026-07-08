@@ -4,6 +4,7 @@
 	import { Button } from '$lib/components/ui';
 	import { getCourse, getAdjacentLessons } from '$lib/content/index';
 	import { getLessonComponent } from '$lib/content/lessons';
+	import { quizStore } from '$lib/components/quiz/quiz-store.svelte';
 
 	const slug = $derived($page.params.slug ?? '');
 	const lessonSlug = $derived($page.params.lessonSlug ?? '');
@@ -19,6 +20,16 @@
 	);
 
 	const { isCompleted, isEnrolled } = $derived($page.data as { isCompleted: boolean; isEnrolled: boolean });
+
+	let quizScore = $state<{ score: number; total: number } | null>(null);
+	let quizSubmitting = $state(false);
+
+	async function handleQuizSubmit() {
+		quizSubmitting = true;
+		const result = await quizStore.submitQuiz(slug, lessonSlug);
+		if (result) quizScore = { score: result.score, total: result.total };
+		quizSubmitting = false;
+	}
 </script>
 
 {#if !course || !lessonData}
@@ -71,17 +82,52 @@
 				{/if}
 			</article>
 
-			<div class="mt-8 flex justify-center">
-				<form method="POST" action="?/toggle" use:enhance>
-					<Button type="submit" variant={isCompleted ? 'outline' : 'primary'}>
-						{#if isCompleted}
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mr-1.5"><path d="M20 6 9 17l-5-5"/></svg>
-							Mark Incomplete
-						{:else}
-							Mark Complete
-						{/if}
-					</Button>
-				</form>
+			<div class="mt-8 space-y-4">
+				{#if quizScore}
+					<div class="rounded-xl border-2 border-primary-200 bg-primary-50 p-6 text-center">
+						<p class="text-lg font-bold text-primary-800">
+							Quiz Complete — {quizScore.score}/{quizScore.total} correct
+						</p>
+						<p class="mt-2 text-sm text-primary-600">
+							{#if quizScore.score === quizScore.total}
+								Perfect score!
+							{:else if quizScore.score >= quizScore.total / 2}
+								Good effort!
+							{:else}
+								Keep practicing!
+							{/if}
+						</p>
+						<button
+							onclick={() => { quizScore = null; }}
+							class="mt-3 cursor-pointer rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700"
+						>
+							Retry Quiz
+						</button>
+					</div>
+				{:else}
+					<div class="flex justify-center">
+						<button
+							onclick={handleQuizSubmit}
+							disabled={quizSubmitting}
+							class="cursor-pointer rounded-lg bg-primary-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-primary-700 disabled:opacity-50"
+						>
+							{quizSubmitting ? 'Submitting...' : 'Submit Quiz'}
+						</button>
+					</div>
+				{/if}
+
+				<div class="flex justify-center">
+					<form method="POST" action="?/toggle" use:enhance>
+						<Button type="submit" variant={isCompleted ? 'outline' : 'primary'}>
+							{#if isCompleted}
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mr-1.5"><path d="M20 6 9 17l-5-5"/></svg>
+								Mark Incomplete
+							{:else}
+								Mark Complete
+							{/if}
+						</Button>
+					</form>
+				</div>
 			</div>
 
 			<nav class="mt-8 flex items-center justify-between border-t border-surface-200 pt-6">

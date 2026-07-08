@@ -1,0 +1,90 @@
+[
+  {
+    "id": "quiz-q1",
+    "type": "mcq",
+    "correct": "C",
+    "points": 1
+  },
+  {
+    "id": "quiz-q2",
+    "type": "mcq",
+    "correct": "C",
+    "points": 1
+  },
+  {
+    "id": "quiz-q3",
+    "type": "tf",
+    "correct": "false",
+    "points": 1
+  },
+  {
+    "id": "quiz-q4",
+    "type": "code",
+    "correct": [
+      "<class 'float'>"
+    ],
+    "points": 1
+  },
+  {
+    "id": "quiz-q5",
+    "type": "mcq",
+    "correct": "B",
+    "points": 1
+  },
+  {
+    "id": "quiz-q6",
+    "type": "fill",
+    "correct": [
+      "#"
+    ],
+    "points": 1
+  },
+  {
+    "id": "quiz-q7",
+    "type": "mcq",
+    "correct": "C",
+    "points": 1
+  },
+  {
+    "id": "quiz-q8",
+    "type": "code",
+    "correct": [
+      "n"
+    ],
+    "points": 1
+  },
+  {
+    "id": "quiz-q9",
+    "type": "tf",
+    "correct": "false",
+    "points": 1
+  },
+  {
+    "id": "quiz-q10",
+    "type": "mcq",
+    "correct": "B",
+    "points": 1
+  },
+  {
+    "id": "quiz-q11",
+    "type": "fill",
+    "correct": [
+      "len"
+    ],
+    "points": 1
+  },
+  {
+    "id": "quiz-q12",
+    "type": "code",
+    "correct": [
+      "5 John"
+    ],
+    "points": 1
+  },
+  {
+    "id": "quiz-q13",
+    "type": "mcq",
+    "correct": "B",
+    "points": 1
+  }
+]

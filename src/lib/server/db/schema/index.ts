@@ -18,3 +18,9 @@ export type { Session, NewSession } from './sessions';
 
 export { passwordResetTokens } from './passwordResetTokens';
 export type { PasswordResetToken, NewPasswordResetToken } from './passwordResetTokens';
+
+export { quizAttempts } from './quiz-attempts';
+export type { QuizAttempt, NewQuizAttempt } from './quiz-attempts';
+
+export { certificates } from './certificates';
+export type { Certificate, NewCertificate } from './certificates';

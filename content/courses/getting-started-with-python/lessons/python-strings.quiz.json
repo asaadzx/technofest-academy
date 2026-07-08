@@ -1,0 +1,30 @@
+[
+  {
+    "id": "strings-q1",
+    "type": "mcq",
+    "correct": "B",
+    "points": 1
+  },
+  {
+    "id": "strings-q2",
+    "type": "code",
+    "correct": [
+      "Hello, World!"
+    ],
+    "points": 1
+  },
+  {
+    "id": "strings-q3",
+    "type": "fill",
+    "correct": [
+      "length"
+    ],
+    "points": 1
+  },
+  {
+    "id": "strings-q4",
+    "type": "mcq",
+    "correct": "A",
+    "points": 1
+  }
+]

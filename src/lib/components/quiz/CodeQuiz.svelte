@@ -26,7 +26,7 @@
 	function handleSubmit() {
 		if (!answer.trim() || submitted) return;
 		submitted = true;
-		quizStore.recordResult(id, lesson, answer.trim().toLowerCase() === correct.trim().toLowerCase());
+		quizStore.recordResult(id, lesson, answer, answer.trim().toLowerCase() === correct.trim().toLowerCase());
 	}
 
 	function handleRetry() {

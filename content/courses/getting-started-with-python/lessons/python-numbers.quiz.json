@@ -1,0 +1,24 @@
+[
+  {
+    "id": "numbers-q1",
+    "type": "mcq",
+    "correct": "B",
+    "points": 1
+  },
+  {
+    "id": "numbers-q2",
+    "type": "code",
+    "correct": [
+      "5"
+    ],
+    "points": 1
+  },
+  {
+    "id": "numbers-q3",
+    "type": "fill",
+    "correct": [
+      "random"
+    ],
+    "points": 1
+  }
+]
