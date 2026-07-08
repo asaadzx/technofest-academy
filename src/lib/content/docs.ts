@@ -35,10 +35,11 @@ export function getDocs(): DocMeta[] {
 		const raw = typeof rawEntry === 'string' ? rawEntry : (rawEntry as any)?.default ?? '';
 		const headings = extractHeadings(raw);
 
+		const meta = mod.metadata ?? {};
 		docs.push({
 			slug,
-			title: (mod.metadata.title as string) || slug,
-			description: (mod.metadata.description as string) || '',
+			title: (meta.title as string) || slug,
+			description: (meta.description as string) || '',
 			component: mod.default,
 			headings
 		});

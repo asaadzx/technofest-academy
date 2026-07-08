@@ -20,7 +20,7 @@ const config = {
 	preprocess: [vitePreprocess(), mdsvex(mdsvexOptions)],
 	kit: {
 		adapter: adapter(),
-		csrf: { checkOrigin: false },
+		csrf: { trustedOrigins: ['http://localhost:5173', 'https://*.vercel.app'] },
 		alias: {
 			$content: './content'
 		}

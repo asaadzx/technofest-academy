@@ -14,7 +14,12 @@
         <div class="mb-6 flex justify-center">
             <Logo showText={false} size="xl" />
         </div>
-        <div class="mb-5 flex items-center justify-center gap-2">
+        <a
+            href="https://anas-ibn-malik-school.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mb-5 flex items-center justify-center gap-2"
+        >
             <img src="/school-logo.webp" alt="School logo" class="h-8 w-auto" />
             <Badge
                 variant="primary"
@@ -22,7 +27,7 @@
             >
                 Anas Ibn Malik Official Language School
             </Badge>
-        </div>
+        </a>
         <h1 class="text-5xl font-bold tracking-tight md:text-6xl">
             TechnoFest
         </h1>
@@ -51,8 +56,13 @@
         <h2 class="text-3xl font-bold text-surface-900">About TechnoFest</h2>
         <p class="mx-auto max-w-3xl text-lg leading-relaxed text-surface-600">
             TechnoFest is a proposed electronic exhibition designed to ignite
-            passion for technology among students at Anas Ibn Malik Official
-            Language School. Targeting students from Prep&nbsp;1 (Grade&nbsp;7)
+            passion for technology among students at <a
+                href="https://anas-ibn-malik-school.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-primary-600 hover:text-primary-700 underline underline-offset-2"
+            >Anas Ibn Malik Official
+            Language School</a>. Targeting students from Prep&nbsp;1 (Grade&nbsp;7)
             to Senior&nbsp;2, this event will serve as a dynamic platform for
             learning, creating, and showcasing projects in cutting-edge
             technological fields. With a focus on hands-on development,
@@ -253,11 +263,17 @@
     <div
         class="flex flex-col items-center gap-3 border-t border-surface-200 pt-8 text-center"
     >
-        <img
-            src="/school-logo.webp"
-            alt="Anas Ibn Malik Official Language School"
-            class="h-10 w-auto"
-        />
+        <a
+            href="https://anas-ibn-malik-school.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <img
+                src="/school-logo.webp"
+                alt="Anas Ibn Malik Official Language School"
+                class="h-10 w-auto"
+            />
+        </a>
         <p class="text-sm text-surface-400">
             TechnoFest Academy &mdash; An initiative by
             <a
