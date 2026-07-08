@@ -59,3 +59,50 @@ print("But this will")
 - Use `#` for single-line comments.
 - Use `"""` triple quotes for multi-line comments (or notes).
 - Comments improve readability and help with debugging.
+
+---
+
+<script>
+	import { MCQ, Fill } from '$lib/components/quiz/index.js';
+</script>
+
+## Think About It
+
+<MCQ
+	id="comments-q1"
+	lesson="python-comments"
+	question="Which symbol is used for single-line comments in Python?"
+	hint="Look at the comment examples at the start of the lesson."
+	options={[
+		{ label: "A", text: "//" },
+		{ label: "B", text: "<!-- -->" },
+		{ label: "C", text: "#" },
+		{ label: "D", text: "/* */" }
+	]}
+	correct="C"
+	explanation="In Python, the # symbol starts a comment. Everything after # on that line is ignored by Python."
+/>
+
+<MCQ
+	id="comments-q2"
+	lesson="python-comments"
+	question="What is the main purpose of comments in code?"
+	hint="Think about what the 'Why Use Comments?' section said."
+	options={[
+		{ label: "A", text: "To make the code run faster" },
+		{ label: "B", text: "To explain why you did something" },
+		{ label: "C", text: "To add new features" },
+		{ label: "D", text: "To check for errors" }
+	]}
+	correct="B"
+	explanation="Comments explain why you did something (the reasoning), not what the code does (the code itself shows that). They also help with debugging by temporarily disabling code."
+/>
+
+<Fill
+	id="comments-q3"
+	lesson="python-comments"
+	question="In Python, multi-line strings enclosed in triple quotes (&quot;&quot;&quot; &quot;&quot;&quot;) that aren't assigned to a variable act like __________."
+	hint="Think about what Python does with unassigned strings."
+	correct="comments"
+	explanation="Python ignores string literals that aren't assigned or printed, so triple-quoted strings effectively work as multi-line comments."
+/>

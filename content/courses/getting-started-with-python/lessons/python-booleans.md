@@ -90,3 +90,46 @@ print(isinstance(x, str))     # False
 - Comparison operators (`>`, `<`, `==`, etc.) return booleans.
 - Use `and`, `or`, `not` to combine/invert boolean values.
 - Use `isinstance()` to type-check values.
+
+---
+
+<script>
+	import { MCQ, TF, CodeQuiz } from '$lib/components/quiz/index.js';
+</script>
+
+## Think About It
+
+<TF
+	id="booleans-q1"
+	lesson="python-booleans"
+	question="In Python, bool(0) and bool('') both return True."
+	hint="Check the examples showing values that evaluate to False."
+	correct={false}
+	explanation="Both 0 and empty strings evaluate to False. bool(0) → False, bool('') → False. Only non-zero numbers and non-empty strings evaluate to True."
+/>
+
+<CodeQuiz
+	id="booleans-q2"
+	lesson="python-booleans"
+	code={`print(10 > 9)
+print(10 == 9)`}
+	question="What does this code print?"
+	hint="Comparison operators return boolean values."
+	correct="True\nFalse"
+	explanation="10 > 9 is True, and 10 == 9 is False. Both are boolean results from comparison operators."
+/>
+
+<MCQ
+	id="booleans-q3"
+	lesson="python-booleans"
+	question="What does isinstance(5, str) return?"
+	hint="Review the isinstance() section at the end of the lesson."
+	options={[
+		{ label: "A", text: "True" },
+		{ label: "B", text: "False" },
+		{ label: "C", text: "5" },
+		{ label: "D", text: "Error" }
+	]}
+	correct="B"
+	explanation="isinstance() checks if a value is a certain type. 5 is an int, not a str, so isinstance(5, str) returns False."
+/>

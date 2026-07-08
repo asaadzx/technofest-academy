@@ -91,3 +91,53 @@ y = int(x)      # convert string to int → 5
 - Python infers types automatically on assignment.
 - You can convert between compatible types with `int()`, `float()`, `str()`, etc.
 - The main types to know now: `str`, `int`, `float`, `bool`, `list`, `dict`.
+
+---
+
+<script>
+	import { MCQ, CodeQuiz } from '$lib/components/quiz/index.js';
+</script>
+
+## Think About It
+
+<MCQ
+	id="datatypes-q1"
+	lesson="python-data-types"
+	question="How do you check the type of a value in Python?"
+	hint="The lesson showed a function that returns the type."
+	options={[
+		{ label: "A", text: "checktype()" },
+		{ label: "B", text: "typeof()" },
+		{ label: "C", text: "type()" },
+		{ label: "D", text: "gettype()" }
+	]}
+	correct="C"
+	explanation="type() returns the type of any value. For example, type('Hello') returns <class 'str'>."
+/>
+
+<CodeQuiz
+	id="datatypes-q2"
+	lesson="python-data-types"
+	code={`x = 5.5
+y = int(x)
+print(y)`}
+	question="What does this code print?"
+	hint="Remember how float-to-int conversion works."
+	correct="5"
+	explanation="int() converts a float to an integer by truncating (removing) the decimal part. It does NOT round — so 5.5 becomes 5."
+/>
+
+<MCQ
+	id="datatypes-q3"
+	lesson="python-data-types"
+	question="What type does x = 'Hello' create?"
+	hint="Review the 'Setting the Data Type' table."
+	options={[
+		{ label: "A", text: "str" },
+		{ label: "B", text: "list" },
+		{ label: "C", text: "bool" },
+		{ label: "D", text: "int" }
+	]}
+	correct="A"
+	explanation="Values in quotes are strings (str). Since 'Hello' is in quotes, x becomes a string type."
+/>

@@ -156,3 +156,61 @@ Other common escapes:
 - Use `len()` for length, `.upper()/.lower()` for case changes.
 - Use **f-strings** (`f"..."`) for formatting variables into strings.
 - Use `\` to escape special characters.
+
+---
+
+<script>
+	import { MCQ, CodeQuiz, Fill } from '$lib/components/quiz/index.js';
+</script>
+
+## Think About It
+
+<MCQ
+	id="strings-q1"
+	lesson="python-strings"
+	question="What does txt[0:3] return if txt = 'Python'?"
+	hint="Remember that slicing [start:end] is exclusive of the end index."
+	options={[
+		{ label: "A", text: "Pyth" },
+		{ label: "B", text: "Pyt" },
+		{ label: "C", text: "yth" },
+		{ label: "D", text: "Python" }
+	]}
+	correct="B"
+	explanation="String indices start at 0. txt[0:3] takes characters at indices 0, 1, and 2 (end is exclusive), giving 'Pyt'."
+/>
+
+<CodeQuiz
+	id="strings-q2"
+	lesson="python-strings"
+	code={`txt = "  Hello, World!  "
+print(txt.strip())`}
+	question="What does this code print?"
+	hint="strip() removes whitespace from both ends."
+	correct="Hello, World!"
+	explanation="strip() removes leading and trailing whitespace (spaces, tabs, newlines) from the string, resulting in 'Hello, World!'."
+/>
+
+<Fill
+	id="strings-q3"
+	lesson="python-strings"
+	question="The len() function returns the ______ of a string."
+	hint="Think about what len() told you for 'Python'."
+	correct="length"
+	explanation="len() returns the number of characters in a string. For 'Python', len() returns 6."
+/>
+
+<MCQ
+	id="strings-q4"
+	lesson="python-strings"
+	question="Given age = 16, which syntax correctly inserts age into a string?"
+	hint="Review the 'String Formatting' section about f-strings."
+	options={[
+		{ label: "A", text: "f'I am {age} years old'" },
+		{ label: "B", text: "'I am {age} years old'" },
+		{ label: "C", text: "'I am %age years old'" },
+		{ label: "D", text: "'I am ' + age + ' years old'" }
+	]}
+	correct="A"
+	explanation="f-strings (f'...') let you embed variables directly inside curly braces. This is the modern way to format strings in Python 3.6+."
+/>

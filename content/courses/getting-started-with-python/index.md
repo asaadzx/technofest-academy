@@ -23,6 +23,8 @@ lessons:
     title: Python Strings
   - slug: python-booleans
     title: Python Booleans
+  - slug: course-quiz
+    title: Course Quiz
 ---
 
 Python is one of the most popular programming languages for beginners and professionals alike. By the end of this course, you'll be able to write Python scripts, understand core programming concepts, and build small applications.

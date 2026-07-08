@@ -139,3 +139,44 @@ print(x, y)  # 5 John
 - Use **snake_case** for multi-word variable names (Python convention).
 - Multiple variables can be assigned in one line.
 - Use commas in `print()` when mixing types.
+
+---
+
+<script>
+	import { MCQ, TF, Fill } from '$lib/components/quiz/index.js';
+</script>
+
+## Think About It
+
+<MCQ
+	id="variables-q1"
+	lesson="python-variables"
+	question="Which of the following is a valid Python variable name?"
+	hint="Review the 'Variable Names' rules."
+	options={[
+		{ label: "A", text: "2myvar" },
+		{ label: "B", text: "my-var" },
+		{ label: "C", text: "my_var" },
+		{ label: "D", text: "my var" }
+	]}
+	correct="C"
+	explanation="Variable names can contain letters, numbers, and underscores, but cannot start with a number, contain hyphens, or contain spaces. my_var follows all rules."
+/>
+
+<TF
+	id="variables-q2"
+	lesson="python-variables"
+	question="Python requires you to declare a variable's type before assigning a value."
+	hint="Look at how variables were created in the examples."
+	correct={false}
+	explanation="Python has no command for declaring a variable type. A variable is created the moment you assign a value, and Python figures out the type automatically."
+/>
+
+<Fill
+	id="variables-q3"
+	lesson="python-variables"
+	question="The most common naming convention for multi-word variables in Python is ________."
+	hint="Review the 'Multi-Word Variable Names' section."
+	correct="snake_case"
+	explanation="snake_case (words separated by underscores) is the most common convention in Python — e.g., my_variable_name."
+/>

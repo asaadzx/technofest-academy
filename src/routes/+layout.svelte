@@ -1,6 +1,7 @@
 <script lang="ts">
 	import '../app.css';
 	import Header from '$lib/components/Header.svelte';
+	import CookieConsent from '$lib/components/CookieConsent.svelte';
 
 	let { children, data } = $props();
 
@@ -16,3 +17,4 @@
 <main>
 	{@render children()}
 </main>
+<CookieConsent />
