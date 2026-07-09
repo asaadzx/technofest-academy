@@ -16,7 +16,8 @@
 		{ href: '/', label: 'Home' },
 		{ href: '/courses', label: 'Courses' },
 		{ href: '/docs', label: 'Docs' },
-		{ href: '/dashboard', label: 'Dashboard' }
+		{ href: '/dashboard', label: 'Dashboard' },
+		{ href: '/search', label: 'Search' }
 	];
 
 	const isActive = $derived((href: string) => {
