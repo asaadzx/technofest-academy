@@ -24,6 +24,7 @@ function parseFrontmatter(raw: string): { metadata: Record<string, unknown>; bod
 
 	const meta: Record<string, unknown> = {};
 	for (const line of match[1].split('\n')) {
+		if (line.startsWith(' ') || line.startsWith('\t')) continue;
 		const sep = line.indexOf(':');
 		if (sep === -1) continue;
 		const key = line.slice(0, sep).trim();

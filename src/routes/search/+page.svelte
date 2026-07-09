@@ -17,13 +17,16 @@
 	let index = $state<SearchEntry[]>([]);
 	let results = $state<SearchEntry[]>([]);
 	let loaded = $state(false);
+	let error = $state<string | null>(null);
 
 	onMount(async () => {
 		try {
 			const res = await fetch('/search-index.json');
 			index = await res.json();
 			loaded = true;
-		} catch {}
+		} catch {
+			error = 'Failed to load search index. Please try again later.';
+		}
 	});
 
 	let debounce: ReturnType<typeof setTimeout>;
@@ -58,11 +61,19 @@
 	}
 
 	const grouped = $derived.by(() => {
-		const g: Record<string, SearchEntry[]> = {};
+		const g: Record<string, SearchEntry[] | Record<string, SearchEntry[]>> = {};
 		for (const r of results) {
-			const key = r.type === 'course' ? 'Courses' : r.type === 'lesson' ? 'Lessons' : 'Documentation';
-			if (!g[key]) g[key] = [];
-			g[key].push(r);
+			if (r.type === 'lesson') {
+				if (!g['Lessons']) g['Lessons'] = {};
+				const lessons = g['Lessons'] as Record<string, SearchEntry[]>;
+				const courseKey = r.courseTitle || 'Other';
+				if (!lessons[courseKey]) lessons[courseKey] = [];
+				lessons[courseKey].push(r);
+			} else {
+				const key = r.type === 'course' ? 'Courses' : 'Documentation';
+				if (!g[key]) g[key] = [];
+				(g[key] as SearchEntry[]).push(r);
+			}
 		}
 		return g;
 	});
@@ -75,15 +86,19 @@
 
 	<div class="relative mt-6">
 		<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="absolute left-4 top-1/2 -translate-y-1/2 text-surface-400"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+		<!-- svelte-ignore a11y_autofocus -->
 		<input
 			type="search"
 			placeholder="Search courses, lessons, and documentation..."
+			autofocus
 			oninput={onInput}
 			class="w-full rounded-xl border border-surface-300 bg-white py-3.5 pl-12 pr-4 text-surface-900 placeholder-surface-400 outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-200"
 		/>
 	</div>
 
-	{#if !loaded}
+	{#if error}
+		<p class="mt-8 text-center text-sm text-red-500">{error}</p>
+	{:else if !loaded}
 		<p class="mt-8 text-center text-sm text-surface-400">Loading search index...</p>
 	{:else if !query}
 		<p class="mt-8 text-center text-sm text-surface-400">
@@ -100,32 +115,57 @@
 			{#each orderedKeys as groupKey}
 				<section>
 					<h2 class="mb-3 text-lg font-semibold text-surface-900">{groupKey}</h2>
-					<div class="space-y-3">
-						{#each grouped[groupKey] as entry (entry.id)}
-							<a
-								href={entry.type === 'course'
-									? '/courses/' + entry.slug
-									: entry.type === 'lesson'
-										? '/courses/' + entry.courseSlug + '/lessons/' + entry.slug
-										: '/docs/' + entry.slug}
-								class="block rounded-xl border border-surface-200 bg-white p-4 transition-colors hover:border-primary-300 hover:bg-primary-50/30"
-							>
-								<div class="flex items-start justify-between gap-3">
-									<h3 class="font-medium text-surface-900">{@html highlight(entry.title)}</h3>
-									<span class="shrink-0 rounded-full bg-surface-100 px-2.5 py-0.5 text-xs font-medium text-surface-500">
-										{entry.type}
-									</span>
-								</div>
-								{#if entry.description}
-									<p class="mt-1 text-sm text-surface-500">{@html highlight(entry.description)}</p>
-								{/if}
-								<p class="mt-2 text-xs text-surface-400 line-clamp-2">{@html highlight(entry.snippet)}</p>
-								{#if entry.type === 'lesson' && entry.courseTitle}
-									<p class="mt-1.5 text-xs text-surface-400">{entry.courseTitle}</p>
-								{/if}
-							</a>
+					{#if groupKey === 'Lessons'}
+						{@const lessons = grouped[groupKey] as Record<string, SearchEntry[]>}
+						{#each Object.keys(lessons) as courseTitle}
+							<h3 class="mb-2 mt-4 text-sm font-medium text-surface-500 first:mt-0">{courseTitle}</h3>
+							<div class="space-y-3">
+								{#each lessons[courseTitle] as entry (entry.id)}
+									<a
+										href={'/courses/' + entry.courseSlug + '/lessons/' + entry.slug}
+										class="block rounded-xl border border-surface-200 bg-white p-4 transition-colors hover:border-primary-300 hover:bg-primary-50/30"
+									>
+										<div class="flex items-start justify-between gap-3">
+											<h3 class="font-medium text-surface-900">{@html highlight(entry.title)}</h3>
+											<span class="shrink-0 rounded-full bg-surface-100 px-2.5 py-0.5 text-xs font-medium text-surface-500">
+												{entry.type}
+											</span>
+										</div>
+										{#if entry.description}
+											<p class="mt-1 text-sm text-surface-500">{@html highlight(entry.description)}</p>
+										{/if}
+										<p class="mt-2 text-xs text-surface-400 line-clamp-2">{@html highlight(entry.snippet)}</p>
+										{#if entry.type === 'lesson' && entry.courseTitle}
+											<p class="mt-1.5 text-xs text-surface-400">{entry.courseTitle}</p>
+										{/if}
+									</a>
+								{/each}
+							</div>
 						{/each}
-					</div>
+					{:else}
+						{@const entries = grouped[groupKey] as SearchEntry[]}
+						<div class="space-y-3">
+							{#each entries as entry (entry.id)}
+								<a
+									href={groupKey === 'Courses'
+										? '/courses/' + entry.slug
+										: '/docs/' + entry.slug}
+									class="block rounded-xl border border-surface-200 bg-white p-4 transition-colors hover:border-primary-300 hover:bg-primary-50/30"
+								>
+									<div class="flex items-start justify-between gap-3">
+										<h3 class="font-medium text-surface-900">{@html highlight(entry.title)}</h3>
+										<span class="shrink-0 rounded-full bg-surface-100 px-2.5 py-0.5 text-xs font-medium text-surface-500">
+											{entry.type}
+										</span>
+									</div>
+									{#if entry.description}
+										<p class="mt-1 text-sm text-surface-500">{@html highlight(entry.description)}</p>
+									{/if}
+									<p class="mt-2 text-xs text-surface-400 line-clamp-2">{@html highlight(entry.snippet)}</p>
+								</a>
+							{/each}
+						</div>
+					{/if}
 				</section>
 			{/each}
 		</div>
